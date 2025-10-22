@@ -1,0 +1,5 @@
+[
+  { "id": "stressed", "label": "when you’re stressed", "message": "Breathe with me: in 4, hold 4, out 6. I’m proud of you." },
+  { "id": "big-day", "label": "on a big day", "message": "You’ve prepared for this. I can’t wait to hear how amazing you did." },
+  { "id": "cant-sleep", "label": "when you can’t sleep", "message": "Close your eyes—remember our favorite moment. I’m there with you." }
+]

@@ -1,0 +1,236 @@
+:root { --bg: #FFF8F2; --accent: #FFD1B3; --ink: #222; }
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--ink); background: var(--bg);
+}
+.topbar { 
+  padding: 24px; 
+  text-align: center; 
+}
+#greeting { 
+  margin: 0; 
+  font-size: 28px; 
+  font-weight: 700; 
+}
+#clock { 
+  margin: 6px 0 0; 
+  opacity: 0.8; 
+}
+.tabs { 
+  display: flex; 
+  gap: 12px; 
+  justify-content: center; 
+  padding: 8px 0 16px; 
+}
+.tabs a { 
+  padding: 8px 12px; 
+  border-radius: 999px; 
+  text-decoration: none; 
+  color: #333; 
+  background: #fff; 
+  border: 1px solid #eee; 
+}
+.tabs a[aria-current="page"] { 
+  border-color: var(--accent); 
+  box-shadow: 0 1px 0 rgba(0,0,0,.04); 
+}
+#home-content { 
+  padding: 24px; 
+}
+
+/* --- Flipbook --- */
+.flip-wrap { 
+  display: grid; 
+  place-items: center; 
+  gap: 14px; }
+.flip-card { 
+  width: min(560px, 90vw); 
+  aspect-ratio: 4/3; 
+  position: relative; 
+  transform-style: preserve-3d; 
+  transition: transform 280ms ease; 
+}
+.flip-card.is-flipped { 
+  transform: rotateY(180deg); 
+}
+.flip-face { 
+  position: absolute; 
+  inset: 0; 
+  backface-visibility: hidden; 
+  display: grid; 
+  place-items: center; 
+}
+.flip-back { 
+  transform: rotateY(180deg); 
+}
+
+.polaroid { 
+  width: 88%; 
+  min-height: 65%; 
+  background: #fff; 
+  border-radius: 16px; 
+  padding: 22px; 
+  box-shadow: 0 10px 35px rgba(0,0,0,.08); 
+}
+.polaroid p { 
+  margin: 0; 
+  font-size: 20px; 
+  line-height: 1.45; 
+}
+
+.flip-actions { 
+  display: flex; 
+  gap: 10px; 
+}
+.btn { 
+  padding: 10px 16px; 
+  border-radius: 999px; 
+  border: 1px solid #eee; 
+  background: #fff; 
+  cursor: pointer; 
+  font-weight: 600; 
+}
+.btn.secondary { 
+  opacity: .9; 
+}
+.btn:active { 
+  transform: translateY(1px); 
+}
+
+/* --- Envelopes --- */
+.env-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); 
+  gap: 16px; 
+  padding: 0 24px 24px; 
+}
+.env-card { 
+  border: 1px solid #eee; 
+  background:#fff; 
+  border-radius: 16px; 
+  padding: 16px; 
+  text-align: center; 
+  cursor: pointer; 
+  box-shadow: 0 8px 24px rgba(0,0,0,.05); 
+  transition: transform 160ms ease; 
+}
+.env-card:active { 
+  transform: translateY(1px) scale(.995); 
+}
+.env-emoji { 
+  font-size: 28px; 
+  display:block; 
+}
+
+dialog::backdrop { 
+  background: rgba(0,0,0,.3); 
+}
+dialog { 
+  border: none; 
+  border-radius: 16px; 
+  padding: 0; 
+}
+.letter { 
+  position: relative; 
+  padding: 24px; 
+  background: #fff; 
+  width: min(560px, 90vw); 
+  border-radius: 16px; 
+  box-shadow: 0 12px 36px rgba(0,0,0,.18); 
+}
+.close { 
+  position: absolute; 
+  right: 10px; 
+  top: 10px; 
+  background: #fff; 
+  border: 1px solid #eee; 
+  border-radius: 999px; 
+  width: 36px; 
+  height: 36px; 
+  cursor: pointer; 
+  font-size: 20px; 
+}
+.letter h3 { 
+  margin: 0 0 8px; 
+}
+.letter p { 
+  margin: 0; 
+  font-size: 18px; 
+  line-height: 1.6; 
+}
+
+/* --- Plant --- */
+.plant-wrap { 
+  display: grid; 
+  place-items: center; 
+  gap: 16px; 
+  padding: 0 24px 24px; 
+}
+.plant-pot { 
+  width: 180px; 
+  height: 180px; 
+  border-radius: 50%; 
+  background: radial-gradient(circle at 50% 40%, #fff, #f3f3f3); 
+  box-shadow: inset 0 -10px 30px rgba(0,0,0,.06), 0 12px 38px rgba(0,0,0,.1); 
+  display: grid; 
+  place-items: center; 
+  user-select: none; 
+}
+.plant-emoji { 
+  font-size: 64px; 
+  transition: transform 200ms ease; 
+}
+.plant-pot:active .plant-emoji { 
+  transform: scale(1.02) translateY(-2px); 
+}
+
+.streak { 
+  width: min(560px, 90vw); 
+}
+.bar { 
+  height: 10px; 
+  background: #eee; 
+  border-radius: 999px; 
+  overflow: hidden; 
+  margin-top: 8px; 
+}
+#bar-fill { 
+  height: 100%; 
+  width: 0%; 
+  background: linear-gradient(90deg, #FFD1B3, #F9C5D5); 
+}
+
+/* --- Polish --- */
+main { 
+  animation: fadeIn 220ms ease; 
+}
+@keyframes fadeIn { 
+  from { 
+    opacity: 0; 
+    transform: translateY(4px);
+  } to { 
+    opacity: 1; 
+    transform: none; 
+  } 
+}
+.tabs a:hover { 
+  transform: translateY(-1px); 
+  transition: transform 180ms ease; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

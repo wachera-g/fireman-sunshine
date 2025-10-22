@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Make Icons</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 24px; }
+    button { padding: 10px 16px; border-radius: 10px; border: 1px solid #ddd; cursor: pointer; }
+    .row { display: flex; gap: 12px; margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Generate App Icons</h1>
+  <p>Click each button to download the PNG icon. Then move the files into <code>assets/icons</code>.</p>
+  <div class="row">
+    <button onclick="make(192)">Download 192×192</button>
+    <button onclick="make(512)">Download 512×512</button>
+  </div>
+
+  <script>
+    function make(size) {
+      const c = document.createElement('canvas');
+      c.width = c.height = size;
+      const ctx = c.getContext('2d');
+
+      // Background (soft gradient-ish)
+      const g = ctx.createLinearGradient(0, 0, size, size);
+      g.addColorStop(0, '#FFD1B3');
+      g.addColorStop(1, '#F9C5D5');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, size, size);
+
+      // White rounded rectangle card
+      const r = size * 0.14;
+      ctx.fillStyle = 'white';
+      roundRect(ctx, size*0.12, size*0.12, size*0.76, size*0.76, r);
+      ctx.fill();
+
+      // Pink heart
+      ctx.save();
+      ctx.translate(size/2, size/2 + size*0.02);
+      ctx.scale(size/500, size/500);
+      ctx.fillStyle = '#FF6B8A';
+      ctx.beginPath();
+      // heart path
+      ctx.moveTo(250, 380);
+      ctx.bezierCurveTo(180, 330, 110, 275, 90, 210);
+      ctx.bezierCurveTo(75, 160, 100, 100, 155, 90);
+      ctx.bezierCurveTo(200, 82, 235, 105, 250, 130);
+      ctx.bezierCurveTo(265, 105, 300, 82, 345, 90);
+      ctx.bezierCurveTo(400, 100, 425, 160, 410, 210);
+      ctx.bezierCurveTo(390, 275, 320, 330, 250, 380);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+
+      // Download
+      const a = document.createElement('a');
+      a.href = c.toDataURL('image/png');
+      a.download = `icon-${size}.png`;
+      a.click();
+
+      function roundRect(ctx, x, y, w, h, r) {
+        const rr = Math.min(r, w/2, h/2);
+        ctx.beginPath();
+        ctx.moveTo(x+rr, y);
+        ctx.arcTo(x+w, y, x+w, y+h, rr);
+        ctx.arcTo(x+w, y+h, x, y+h, rr);
+        ctx.arcTo(x, y+h, x, y, rr);
+        ctx.arcTo(x, y, x+w, y, rr);
+        ctx.closePath();
+      }
+    }
+  </script>
+</body>
+</html>

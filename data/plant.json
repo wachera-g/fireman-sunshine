@@ -1,0 +1,13 @@
+{
+  "stages": [
+    { "day": 0, "label": "Seed" },
+    { "day": 1, "label": "Sprout" },
+    { "day": 3, "label": "Leafy" },
+    { "day": 7, "label": "Bud" },
+    { "day": 14, "label": "Bloom" }
+  ],
+  "milestones": [
+    { "streak": 3, "message": "3 days! Your care makes me grow 🌱" },
+    { "streak": 7, "message": "A whole week—thank you for showing up 🌼" }
+  ]
+}

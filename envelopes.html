@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Firefighter Polarbear • Open When…</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#FFD1B3" />
+  <link rel="icon" href="assets/icons/icon-192.png" />
+  <meta name="description" content="Open-when envelopes with sweet notes and tiny surprises." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="app">
+    <header class="topbar">
+      <h1>Open when…</h1>
+      <p>Little letters for different moments.</p>
+    </header>
+
+    <section id="envelopes-grid" class="env-grid" aria-live="polite"></section>
+
+    <!-- Modal -->
+    <dialog id="env-modal">
+      <article class="letter">
+        <button id="env-close" class="close" aria-label="Close">×</button>
+        <h3 id="env-title">Title</h3>
+        <p id="env-message">Message</p>
+      </article>
+    </dialog>
+</main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

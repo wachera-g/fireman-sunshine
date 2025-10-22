@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Firefighter Polarbear • Love Notes</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#FFD1B3" />
+
+  <!-- Fonts (we'll wire real fonts later; system UI is fine for now) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- (We’ll plug Playfair/Inter later; leaving system fonts for now to keep it simple) -->
+
+  <link rel="icon" href="assets/icons/icon-192.png" />
+  <meta name="description" content="Daily love notes, open-when letters, and a tiny plant that grows with your visits." />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- We’ll build the flipbook UI in Segment 4 -->
+  <main id="app">
+    <header class="topbar">
+        <h1 id="greeting" aria-live="polite"></h1>
+        <p id="clock" aria-live="polite"></p>
+    </header>
+    <nav class="tabs">
+        <a href="index.html" aria-current="page">Notes</a>
+        <a href="envelopes.html">Open when…</a>
+        <a href="plant.html">Plant</a>
+    </nav>
+
+  <!-- We’ll build the flipbook UI here in the next segment -->
+    <section id="home-content">
+      <div class="flip-wrap">
+        <div class="flip-card" id="flip-card" aria-live="polite">
+          <div class="flip-face flip-front">
+            <div class="polaroid">
+              <p id="note-front">Loading note…</p>
+            </div>
+          </div>
+          <div class="flip-face flip-back">
+            <div class="polaroid">
+              <p id="note-back">Loading note…</p>
+            </div>
+          </div>
+        </div>
+        <div class="flip-actions">
+          <button id="flip-btn" class="btn">Flip</button>
+          <button id="prev-btn" class="btn secondary" aria-label="Previous note">◀</button>
+          <button id="next-btn" class="btn secondary" aria-label="Next note">▶</button>
+        </div>
+      </div>
+</section>
+
+</main>
+
+
+  <script src="app.js" defer></script>
+</body>
+</html>
