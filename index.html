@@ -8,21 +8,18 @@
   <!-- PWA -->
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#FFD1B3" />
+  <link rel="icon" href="assets/icons/icon-192.png" />
+  <meta name="description" content="Daily love notes, open-when letters, and a tiny plant that grows with your visits." />
 
-  <!-- Fonts -->
+    <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-  <!-- (We’ll plug Playfair/Inter later; leaving system fonts for now to keep it simple) -->
-
-  <link rel="icon" href="assets/icons/icon-192.png" />
-  <meta name="description" content="Daily love notes, open-when letters, and a tiny plant that grows with your visits." />
-
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- We’ll build the flipbook UI in Segment 4 -->
+  <!-- Flipbook UI -->
   <main id="app">
     <header class="topbar">
         <h1 id="greeting" aria-live="polite"></h1>
@@ -49,6 +46,10 @@
             </div>
           </div>
         </div>
+        <div class="day-switch">
+          <button id="day-today" class="btn">Today</button>
+          <button id="day-yesterday" class="btn secondary">Yesterday</button>
+        </div>
         <div class="flip-actions">
           <button id="flip-btn" class="btn">Flip</button>
           <button id="prev-btn" class="btn secondary" aria-label="Previous note">◀</button>
@@ -57,8 +58,11 @@
       </div>
 </section>
 
-</main>
+<footer class="site-footer">
+  <small>© <span id="yr"></span> Reserved for <strong>your heart</strong> — done in love, joy, prayer and a sprinkle bit of mischief. From your Sunflower💛</small>
+</footer>
 
+</main>
 
   <script src="app.js" defer></script>
 </body>
