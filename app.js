@@ -1,13 +1,13 @@
 /* ---------- App Boot ---------- */
 document.addEventListener('DOMContentLoaded', () => {
   // Personalization: ask once, then remember
-  const nameKey = 'ps_name';
+    const nameKey = 'ps_name';
   let hisName = localStorage.getItem(nameKey);
-  if (!hisName) {
-    const answer = prompt("What should I call him? (e.g., 'Jude', 'Babe')");
-    hisName = (answer && answer.trim()) ? answer.trim() : 'Love';
-    localStorage.setItem(nameKey, hisName);
-  }
+
+// Always use a fixed name
+  hisName = "My Darling Ramen";
+  localStorage.setItem(nameKey, hisName);
+
 
   // Houston time greeting + clock
   const TZ = 'America/Chicago';
