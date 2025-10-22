@@ -1,4 +1,4 @@
-/* ----------- Pocket Sunshine Service Worker ----------- */
+/* ----------- Firefighter Polabear Service Worker ----------- */
 const CACHE_VERSION = 'v1';
 const CACHE_NAME = `ps-${CACHE_VERSION}`;
 
@@ -39,59 +39,43 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch strategy:
-// - HTML/JS/CSS/icons: Cache-first, fall back to network.
-// - JSON data: Network-first with cache fallback (so you can update notes by pushing new files, but still read offline).
+// Fetch strategy
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   const url = new URL(req.url);
 
-  // Only handle same-origin GET requests
-  if (req.method !== 'GET' || url.origin !== location.origin) {
-    return;
-  }
+  if (req.method !== 'GET' || url.origin !== location.origin) return;
 
   if (req.destination === 'document' || req.destination === 'script' || req.destination === 'style' || req.destination === 'image' || req.destination === 'font') {
     event.respondWith(cacheFirst(req));
     return;
   }
-
   if (url.pathname.endsWith('.json')) {
     event.respondWith(networkFirst(req));
     return;
   }
 });
 
-// ----- Strategies -----
 async function cacheFirst(req) {
   const cache = await caches.open(CACHE_NAME);
   const cached = await cache.match(req);
   if (cached) {
-    // Update in background
-    fetch(req).then(res => {
-      if (res && res.ok) cache.put(req, res.clone());
-    }).catch(() => {});
+    fetch(req).then(res => { if (res && res.ok) cache.put(req, res.clone()); }).catch(()=>{});
     return cached;
   }
   const res = await fetch(req);
-  if (res && res.ok) {
-    cache.put(req, res.clone());
-  }
+  if (res && res.ok) cache.put(req, res.clone());
   return res;
 }
-
 async function networkFirst(req) {
   const cache = await caches.open(CACHE_NAME);
   try {
     const res = await fetch(req);
-    if (res && res.ok) {
-      cache.put(req, res.clone());
-    }
+    if (res && res.ok) cache.put(req, res.clone());
     return res;
-  } catch (err) {
+  } catch {
     const cached = await cache.match(req);
     if (cached) return cached;
-    // As a last resort, give back something sensible (optional).
     return new Response('[]', { headers: { 'Content-Type': 'application/json' }});
   }
 }

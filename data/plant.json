@@ -4,10 +4,46 @@
     { "day": 1, "label": "Sprout" },
     { "day": 3, "label": "Leafy" },
     { "day": 7, "label": "Bud" },
-    { "day": 14, "label": "Bloom" }
+    { "day": 14, "label": "Bloom" },
+    { "day": 30, "label": "Thrive" }
   ],
   "milestones": [
-    { "streak": 3, "message": "3 days! Your care makes me grow 🌱" },
-    { "streak": 7, "message": "A whole week—thank you for showing up 🌼" }
+    { "streak": 3, "message": "Three days of faithfulness 🌱. Your consistency is beautiful." },
+    { "streak": 7, "message": "A full week of growth 🌿. Who says you can't nurture? This is evidence enough babe." },
+    { "streak": 14, "message": "Two weeks strong 🌷. Look at you — kinda getting hella attractive with this level of consistency." },
+    { "streak": 30, "message": "A whole month of showing up 🌻. That’s real love in motion. I'm proud of you." }
+  ],
+  "dailyNotes": [
+    "Growth takes time — even flowers bloom one sunrise at a time. Keep showing up.",
+    "Your patience is planting things only God can see right now.",
+    "Water yourself with peace today — not pressure.",
+    "Rest is also growth. Even seeds pause before they sprout. So rest up my precious.",
+    "Faith is the sunlight. Keep your face turned toward it, and glow in that light of faith.",
+    "Small prayers count too — they’re like gentle rain for the soul.",
+    "Your heart’s soil is soft because you let God tend to it.",
+    "Some roots grow best in quiet seasons. Don’t rush what God is nurturing.",
+    "When you choose peace over panic, you grow taller than fear.",
+    "Kindness is your fertilizer. You make things bloom around you.",
+    "God’s timeline isn’t slow; it’s precise. You’re right on schedule, don't worry about other people's lanes.",
+    "You can bloom again, even after being buried. That’s what resurrection looks like.",
+    "Love planted in prayer can weather any storm.",
+    "Keep stretching toward the light — your purpose is photosynthesizing.",
+    "Patience doesn’t mean waiting without movement; it’s trusting while growing.",
+    "You are rooted in grace. Nothing can uproot what God’s hand has planted.",
+    "The way you care for others is how God cares through you. Keep being that vessel.",
+    "Every time you forgive, another leaf grows. Look at your garden now.",
+    "Peace is your daily watering — pour it on generously.",
+    "When you feel unseen, remember: roots grow underground first.",
+    "Every sunrise is proof that God still believes in new beginnings.",
+    "You don’t need to try harder; just stay connected to the Source.",
+    "Faith isn’t fragile — it bends with the wind but never breaks.",
+    "Even on cloudy days, growth is happening. God works in the unseen.",
+    "You make ‘slow growth’ look beautiful. Don’t despise the pace.",
+    "Let gratitude be your sunlight today — it brightens everything. Step into your day with thanksgiving",
+    "Be gentle with yourself; even trees rest in winter. I care about you.",
+    "Today’s prayer: Lord, help me bloom where You’ve planted me — especially here.",
+    "You’re living proof that consistency in love changes everything. I appreciate you.",
+    "Your growth is a love letter God is still writing — and I get to read it daily my precious Ramen."
   ]
 }
+

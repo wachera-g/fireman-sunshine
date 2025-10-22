@@ -1,10 +1,40 @@
-:root { --bg: #FFF8F2; --accent: #FFD1B3; --ink: #222; }
-* { box-sizing: border-box; }
-html, body { height: 100%; }
+/* ---------- Font & Palette ---------- */
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+:root { 
+  --bg: #FFF8F2; 
+  --accent: #FFD1B3; 
+  --ink: #222; 
+}
+
+html, body { 
+  height: 100%; 
+}
 body {
   margin: 0; font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color: var(--ink); background: var(--bg);
+  color: var(--ink); 
+  background: var(--bg);
 }
+
+/* Headings */
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: -0.3px;
+}
+
+/* ---------- Gradient Background ---------- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #FFF8F2 0%, #F9C5D5 50%, #FFD1B3 100%);
+  z-index: -1;
+  filter: blur(60px) brightness(1.03);
+}
+
 .topbar { 
   padding: 24px; 
   text-align: center; 
@@ -32,12 +62,45 @@ body {
   background: #fff; 
   border: 1px solid #eee; 
 }
+.tabs a:hover { 
+  transform: translateY(-1px); 
+  transition: transform 180ms ease; 
+}
+
 .tabs a[aria-current="page"] { 
   border-color: var(--accent); 
   box-shadow: 0 1px 0 rgba(0,0,0,.04); 
 }
 #home-content { 
   padding: 24px; 
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  background: linear-gradient(180deg, #fff 0%, #fdf4f4 100%);
+  border: 1px solid #f0e2df;
+  transition: all 180ms ease;
+}
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0,0,0,.06);
+}
+.btn { 
+  padding: 10px 16px; 
+  border-radius: 999px; 
+  border: 1px solid #eee; 
+  background: #fff; 
+  cursor: pointer; 
+  font-weight: 600; 
+}
+.btn.secondary { 
+  opacity: .9; 
+}
+.btn:active { 
+  transform: translateY(1px); 
+}
+* { 
+  box-sizing: border-box; 
 }
 
 /* --- Flipbook --- */
@@ -79,24 +142,20 @@ body {
   font-size: 20px; 
   line-height: 1.45; 
 }
+.polaroid:hover { 
+  transform: translateY(-3px); 
+  box-shadow: 0 12px 28px rgba(0,0,0,.08); 
+}
 
 .flip-actions { 
   display: flex; 
   gap: 10px; 
 }
-.btn { 
-  padding: 10px 16px; 
-  border-radius: 999px; 
-  border: 1px solid #eee; 
-  background: #fff; 
-  cursor: pointer; 
-  font-weight: 600; 
-}
-.btn.secondary { 
-  opacity: .9; 
-}
-.btn:active { 
-  transform: translateY(1px); 
+.day-switch { 
+  display: flex; 
+  gap: 8px; 
+  justify-content: center; 
+  margin-bottom: 6px; 
 }
 
 /* --- Envelopes --- */
@@ -122,6 +181,13 @@ body {
 .env-emoji { 
   font-size: 28px; 
   display:block; 
+}
+.env-card.locked { 
+  opacity: .4; 
+  cursor: not-allowed; 
+}
+.env-card.locked .env-emoji { 
+  filter: grayscale(1); 
 }
 
 dialog::backdrop { 
@@ -201,11 +267,26 @@ dialog {
   width: 0%; 
   background: linear-gradient(90deg, #FFD1B3, #F9C5D5); 
 }
-
-/* --- Polish --- */
-main { 
-  animation: fadeIn 220ms ease; 
+.plant-notes { 
+  width: min(560px, 90vw); 
+  margin: 0 auto; 
 }
+
+/* --- Page Animation --- */
+main { 
+  animation: fadeIn 400ms cubic-bezier(.25,.8,.25,1);
+}
+@keyframes fadeIn {
+  0% { 
+    opacity: 0; 
+    transform: translateY(8px) scale(.98); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: none; 
+  }
+}
+
 @keyframes fadeIn { 
   from { 
     opacity: 0; 
@@ -215,10 +296,27 @@ main {
     transform: none; 
   } 
 }
-.tabs a:hover { 
-  transform: translateY(-1px); 
-  transition: transform 180ms ease; 
+
+/* ---------- Polaroid & Card Enhancement ---------- */
+.polaroid {
+  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.5);
+  transition: transform 200ms ease, box-shadow 200ms ease;
 }
+.polaroid:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.08);
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  opacity: .75;
+  padding: 24px 12px 40px;
+  font-size: 13px;
+}
+
 
 
 

@@ -1,5 +1,108 @@
 [
   { "id": "stressed", "label": "when you’re stressed", "message": "Breathe with me: in 4, hold 4, out 6. I’m proud of you." },
   { "id": "big-day", "label": "on a big day", "message": "You’ve prepared for this. I can’t wait to hear how amazing you did." },
-  { "id": "cant-sleep", "label": "when you can’t sleep", "message": "Close your eyes—remember our favorite moment. I’m there with you." }
+  { "id": "cant-sleep", "label": "when you can’t sleep", "message": "Close your eyes—remember our favorite moment. I’m there with you." },
+  [
+  {
+    "id": "stressed",
+    "label": "you’re stressed",
+    "message": "Breathe, love. Inhale peace, exhale the pressure. I prayed for your calm before you even asked for it. God’s got you — always."
+  },
+  {
+    "id": "sad",
+    "label": "you’re sad",
+    "message": "Hey, precious one. It’s okay to pause, feel, and rest. You’re allowed softness. God still holds you — and so do my prayers."
+  },
+  {
+    "id": "happy",
+    "label": "you’re happy",
+    "message": "I love your smile — it makes the heavens brighter. I hope joy keeps chasing you until you’re out of breath laughing."
+  },
+  {
+    "id": "tired",
+    "label": "you’re tired",
+    "message": "Lay your head down, my precious gem. Rest isn’t weakness; it’s worship. Let God recharge what the world drained."
+  },
+  {
+    "id": "miss-me",
+    "label": "you miss me",
+    "message": "Close your eyes. Hear my voice teasing you for no reason. I’m right there — somewhere between prayer and thought. You’re not alone."
+  },
+  {
+    "id": "big-day",
+    "label": "it’s a big day",
+    "message": "You’ve got this, my good gift. God already went ahead of you. Walk in that confidence — humble, brave, and glowing."
+  },
+  {
+    "id": "sick",
+    "label": "you’re not feeling well",
+    "message": "Soup, sleep, and Scripture — in that order. I’m whispering healing prayers and sending virtual hugs with extra vitamin ME."
+  },
+  {
+    "id": "doubt",
+    "label": "you’re doubting yourself",
+    "message": "Remember who called you. You’re equipped, chosen, and loved — not by accident but by design. God doesn’t build halfway miracles."
+  },
+  {
+    "id": "overthinking",
+    "label": "you’re overthinking",
+    "message": "Hey, mind runner. Slow down. You don’t need to fix it all — you just need to rest in Him. Peace is the plan, not perfection, okay babe?"
+  },
+  {
+    "id": "angry",
+    "label": "you’re angry",
+    "message": "Take a deep breath, love. Let grace go first — even when you’re right. You don’t lose by being gentle; you lead by being kind."
+  },
+  {
+    "id": "alone",
+    "label": "you feel alone",
+    "message": "God hasn’t moved. He’s closer than breath — and so am I, praying you feel surrounded by love even in the quiet. Call me if you think I can help."
+  },
+  {
+    "id": "grateful",
+    "label": "you feel grateful",
+    "message": "Take a second to thank Him out loud — then text me. I want to hear every little thing that made you smile today."
+  },
+  {
+    "id": "celebrating",
+    "label": "you achieved something",
+    "message": "Yesss, my precious! I’m so proud of you — not just for winning, but for working hard with humility. God’s favor looks good on you."
+  },
+  {
+    "id": "nervous",
+    "label": "you’re nervous",
+    "message": "It’s okay to feel shaky — courage isn’t the absence of fear, it’s choosing trust anyway. God’s got both you and the outcome. You got this babe"
+  },
+  {
+    "id": "quiet-day",
+    "label": "the day feels too quiet",
+    "message": "Silence isn’t empty — sometimes it’s God humming peace over your thoughts. Let the stillness hold you."
+  },
+  {
+    "id": "lonely-night",
+    "label": "it’s a lonely night",
+    "message": "Look up at the stars. The same God painting that sky is guarding your heart and mind in Him. Sleep soft; you’re loved beyond words. Hugs and kisses to you."
+  },
+  {
+    "id": "victory",
+    "label": "you had a breakthrough",
+    "message": "See? Faith works. I’m celebrating you — dance a little, sing off-key, and thank the One who made this moment possible. I'm so proud of you Stevie."
+  },
+  {
+    "id": "fail",
+    "label": "something didn’t work out",
+    "message": "You didn’t fail — you learned. God doesn’t waste the lessons, and neither should you. Tomorrow still has new mercies waiting for you. You've got this and you are still going to soar higher. I'm cheering for you my darling."
+  },
+  {
+    "id": "missing-god",
+    "label": "you feel far from God",
+    "message": "You’re not lost. God’s not offended by your silence — He’s patiently waiting for your next whisper. Talk to Him again today."
+  },
+  {
+    "id": "bored",
+    "label": "you’re bored",
+    "message": "Maybe boredom’s an invitation to create something beautiful — write, doodle, or message me. I’ll always be the fun option, lol 😉"
+  }
+]
+
 ]
