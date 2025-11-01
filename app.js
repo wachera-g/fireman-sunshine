@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let hisName = localStorage.getItem(nameKey);
 
 // Always use a fixed name
-  hisName = "My Darling Ramen";
+  hisName = "Babe";
   localStorage.setItem(nameKey, hisName);
 
 
