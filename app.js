@@ -124,7 +124,7 @@ const DAILY_LIMIT_PLANT = 1;      // Plant page: notes per day
   btnYesterday?.addEventListener('click', () => selectDay(-1));
 })();
 
-/* ---------- Envelopes Page (daily unlocks) ---------- */
+/* ---------- Envelopes Page (one new per Houston calendar day) ---------- */
 (function setupEnvelopes(){
   const grid = document.getElementById('envelopes-grid');
   if (!grid) return;
@@ -135,68 +135,163 @@ const DAILY_LIMIT_PLANT = 1;      // Plant page: notes per day
   const titleEl = document.getElementById('env-title');
   const msgEl   = document.getElementById('env-message');
 
-  const UNLOCK_KEY = 'ps_env_unlocked_ids';
-  const LAST_DAY_KEY = 'ps_env_last_day';
+  // storage keys
+  const OPENED_KEY = 'ps_env_opened_ids';        // array of opened envelope ids
+  const LAST_OPEN_DATE_KEY = 'ps_env_last_open_date'; // 'YYYY-MM-DD' in Houston
+  const NOTIFIED_FOR_KEY = 'ps_env_notified_for';     // date we already notified on load
 
   let items = [];
+  let opened = loadOpened();
 
+  // load data then render
   fetch('./data/envelopes.json')
     .then(r => r.json())
-    .then(list => { items = Array.isArray(list) ? list : []; dailyUnlock(); renderGrid(items); })
-    .catch(() => renderGrid([]));
+    .then(list => {
+      items = Array.isArray(list) ? list : [];
+      renderGrid(items);
+      maybeNotifyIfNewDay();
+    })
+    .catch(() => { grid.innerHTML = `<p style="opacity:.7">No envelopes yet.</p>`; });
 
-  function dayStr(offset=0){
-    const d=new Date(); d.setDate(d.getDate()+offset);
-    return new Intl.DateTimeFormat('en-CA',{ timeZone: TZ, year:'numeric', month:'2-digit', day:'2-digit' }).format(d);
+  /* ---- helpers (time & storage) ---- */
+  function dayStr(date = new Date()) {
+    return new Intl.DateTimeFormat('en-CA', {
+      timeZone: TZ, year:'numeric', month:'2-digit', day:'2-digit'
+    }).format(date); // e.g. "2025-11-02"
   }
-  function loadUnlocked(){ try { return JSON.parse(localStorage.getItem(UNLOCK_KEY) || '[]'); } catch { return []; } }
-  function saveUnlocked(arr){ localStorage.setItem(UNLOCK_KEY, JSON.stringify(arr)); }
+  function todayHouston() { return dayStr(); }
 
-  function dailyUnlock(){
-    const today = dayStr(0);
-    const last = localStorage.getItem(LAST_DAY_KEY);
-    if (last === today) return;
-
-    let unlocked = loadUnlocked();
-    const remaining = items.filter(it => !unlocked.includes(it.id));
-    const toUnlock = remaining.slice(0, DAILY_LIMIT_ENVELOPES).map(it => it.id);
-    if (toUnlock.length) unlocked = unlocked.concat(toUnlock);
-
-    saveUnlocked(unlocked);
-    localStorage.setItem(LAST_DAY_KEY, today);
+  function loadOpened(){
+    try { return JSON.parse(localStorage.getItem(OPENED_KEY) || '[]'); }
+    catch { return []; }
+  }
+  function saveOpened(arr){
+    localStorage.setItem(OPENED_KEY, JSON.stringify(arr));
   }
 
+  function canOpenNewToday() {
+    const last = localStorage.getItem(LAST_OPEN_DATE_KEY);
+    return last !== todayHouston(); // new calendar day in Houston => allowed
+  }
+
+  /* ---- best-effort notification on load if a new one is available ---- */
+  async function maybeNotifyIfNewDay(){
+    if (!('serviceWorker' in navigator) || !('Notification' in window)) return;
+    if (Notification.permission === 'denied') return;
+
+    const today = todayHouston();
+    const already = localStorage.getItem(NOTIFIED_FOR_KEY);
+
+    if (canOpenNewToday() && already !== today) {
+      try {
+        if (Notification.permission !== 'granted') {
+          await Notification.requestPermission();
+        }
+        if (Notification.permission === 'granted') {
+          const reg = await navigator.serviceWorker.getRegistration();
+          await reg?.showNotification('A new letter is ready 💌', {
+            body: 'You can open one new envelope today.',
+            icon: './assets/icons/icon-192.png',
+            badge: './assets/icons/icon-192.png'
+          });
+          localStorage.setItem(NOTIFIED_FOR_KEY, today);
+        }
+      } catch {}
+    }
+  }
+
+  /* ---- UI ---- */
   function renderGrid(list) {
-    const unlocked = new Set(loadUnlocked());
     if (!list.length) { grid.innerHTML = `<p style="opacity:.7">No envelopes yet.</p>`; return; }
 
-    grid.innerHTML = list.map(it => {
-      const isLocked = !unlocked.has(it.id);
+    const allowNew = canOpenNewToday();
+    const hint = allowNew
+      ? `<small style="display:block; text-align:center; opacity:.7; margin:4px 0 12px;">You can open <strong>one</strong> new envelope today.</small>`
+      : `<small style="display:block; text-align:center; opacity:.7; margin:4px 0 12px;">You’ve opened today’s letter. Next unlock is at <strong>midnight (Houston)</strong>.</small>`;
+
+    grid.innerHTML = hint + list.map(it => {
+      const isOpened = opened.includes(it.id);
+      const canOpenThis = allowNew && !isOpened;
+      const locked = !canOpenThis && !isOpened;
+
       const label = escapeHTML(it.label || it.id || 'Open when…');
+      const emoji = isOpened ? '✉️' : (locked ? '🔒' : '📨');
+      const classes = ['env-card', locked ? 'locked' : ''].join(' ').trim();
+
       return `
-        <button class="env-card ${isLocked ? 'locked':''}" data-id="${it.id}" ${isLocked?'disabled':''}>
-          <span class="env-emoji">${isLocked ? '🔒' : '✉️'}</span>
+        <button class="${classes}" data-id="${it.id}" ${locked ? 'disabled':''}>
+          <span class="env-emoji">${emoji}</span>
           <div>${label}</div>
         </button>
       `;
     }).join('');
 
-    grid.querySelectorAll('.env-card:not(.locked)').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-id');
+    // click handlers
+    grid.querySelectorAll('.env-card').forEach(btn => {
+      const id = btn.getAttribute('data-id');
+      const isOpened = opened.includes(id);
+
+      btn.addEventListener('click', async () => {
         const item = list.find(x => x.id === id);
-        titleEl.textContent = `Open ${item?.label || 'when…'}`;
-        msgEl.textContent = item?.message || '';
-        modal.showModal();
+        if (!item) return;
+
+        if (isOpened) {
+          // re-open any previously opened letter
+          showLetter(item);
+          return;
+        }
+
+        if (!canOpenNewToday()) {
+          toast("Only one new envelope per calendar day (Houston). See you after midnight 💛");
+          return;
+        }
+
+        // open today's one
+        showLetter(item);
+        opened = Array.from(new Set([...opened, id]));
+        saveOpened(opened);
+
+        // record that today's new slot is used
+        localStorage.setItem(LAST_OPEN_DATE_KEY, todayHouston());
+
+        // ask for notification permission (so we can notify on next day’s first load)
+        try {
+          if ('Notification' in window && Notification.permission !== 'granted') {
+            await Notification.requestPermission();
+          }
+        } catch {}
+
+        // re-render to lock the remaining unopened ones
+        renderGrid(list);
       });
     });
+  }
+
+  function showLetter(item){
+    titleEl.textContent = `Open ${item?.label || 'when…'}`;
+    msgEl.textContent = item?.message || '';
+    modal.showModal();
   }
 
   closeBtn?.addEventListener('click', () => modal.close());
   modal?.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });
 
   function escapeHTML(s=''){ return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+  function toast(msg){
+    const t = document.createElement('div');
+    t.textContent = msg;
+    Object.assign(t.style, {
+      position:'fixed', left:'50%', bottom:'20px', transform:'translateX(-50%)',
+      background:'#fff', border:'1px solid #eee', padding:'10px 14px',
+      borderRadius:'999px', boxShadow:'0 8px 24px rgba(0,0,0,.08)', zIndex:9999
+    });
+    document.body.appendChild(t);
+    setTimeout(()=> t.remove(), 2200);
+  }
 })();
+
+
 
 /* ---------- Plant Page (streak + daily notes limit) ---------- */
 (function setupPlant(){
